@@ -28,6 +28,8 @@ services:
     tty: true
     stdin_open: true
     command: npm run serve
+    environment:
+      - VUE_APP_URL=http://localhost:3000
 
 volumes:
   mysql_data:
