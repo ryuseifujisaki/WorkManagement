@@ -13,7 +13,7 @@
               <br />
               <v-text-field label="password"> </v-text-field>
               <br />
-              <v-btn>ログイン</v-btn>
+              <v-btn @click="submit" to="/work">ログイン</v-btn>
               <br />
             </v-col>
             <v-col cols="2"></v-col>
@@ -25,15 +25,32 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       dialog: false,
+      email: "",
+      password: "",
     };
   },
   methods: {
     open: function () {
       this.dialog = true;
+    },
+
+    submit: function () {
+      const url = process.env.VUE_APP_URL + "/api/auth/sign_in";
+      var params = new URLSearchParams();
+      params.append("email", this.email);
+      params.append("password", this.password);
+      axios.defaults.headers.common["Content-Type"] = "application/json";
+      axios.post(url, params).then((response) => {
+        localStorage.setItem("access-token", response.headers["access-token"]);
+        localStorage.setItem("client", response.headers["client"]);
+        localStorage.setItem("uid", response.headers["uid"]);
+        localStorage.setItem("token-type", response.headers["token-type"]);
+      });
     },
   },
 };
