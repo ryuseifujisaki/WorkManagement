@@ -3,6 +3,7 @@
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Work Information</h1>
     </v-container>
+    <h3 class="text-right justify px-9">ようこそ {{ this.usersName }}</h3>
     <v-row>
       <v-col cols="3"></v-col>
       <v-col cols="6">
@@ -48,6 +49,7 @@ export default {
   data() {
     return {
       works: [],
+      usersName: [],
     };
   },
   mounted: function () {
@@ -64,6 +66,19 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.works = response.data;
+      });
+    axios
+      .get(url + "/api/v1/current_user/show", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.usersName = response.data.name;
       });
   },
 };

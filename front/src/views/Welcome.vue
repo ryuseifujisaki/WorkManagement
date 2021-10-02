@@ -42,6 +42,7 @@ export default {
     submit: function () {
       const url = process.env.VUE_APP_URL + "/api/auth/sign_in";
       var params = new URLSearchParams();
+
       params.append("email", this.email);
       params.append("password", this.password);
       axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -52,8 +53,9 @@ export default {
             response.headers["access-token"]
           );
           localStorage.setItem("client", response.headers["client"]);
-          localStorage.setItem("uid", response.headers["uid"]);
+          localStorage.setItem("uid", response.data.data["uid"]);
           localStorage.setItem("token-type", response.headers["token-type"]);
+          console.log(response.data);
           window.location.href = "/work";
         },
         (error) => {
