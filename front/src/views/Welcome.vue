@@ -30,8 +30,8 @@ export default {
   data() {
     return {
       dialog: false,
-      email: "",
-      password: "",
+      email: null,
+      password: null,
     };
   },
   methods: {

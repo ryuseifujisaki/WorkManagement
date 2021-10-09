@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get "current_user/show" => "current_user_api#show"
       get "current_user/new" => "current_user_api#new"
       get "current_user/get_user_detail" => "current_user_api#get_user_detail"
+      get "work_user/get_work_user" => "work_user_api#get_work_user"
     end
 
   end

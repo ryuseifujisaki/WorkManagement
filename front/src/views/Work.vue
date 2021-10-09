@@ -52,6 +52,9 @@ export default {
       usersName: [],
     };
   },
+
+  methods: {},
+
   mounted: function () {
     const url = process.env.VUE_APP_URL;
     axios
@@ -77,8 +80,8 @@ export default {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        this.usersName = response.data.name;
+        console.log(response.data.data.name);
+        this.usersName = response.data.data.name;
       });
   },
 };
