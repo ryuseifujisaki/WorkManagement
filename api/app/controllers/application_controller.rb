@@ -1,3 +1,4 @@
 class ApplicationController < ActionController::API
-        include DeviseTokenAuth::Concerns::SetUserByToken
+  # before_filter :authenticate_user!
+  include DeviseTokenAuth::Concerns::SetUserByToken
 end
