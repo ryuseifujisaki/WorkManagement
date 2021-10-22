@@ -31,8 +31,6 @@
             <br />
             服装:{{ work.cloth }}
             <br />
-            持ち物:{{ work.belonging }}
-            <br />
             メンバー:
             <ui>
               <li
@@ -43,7 +41,9 @@
               </li>
             </ui>
             <v-spacer class="py-5"></v-spacer>
-            <v-btn elevation="10">参加する</v-btn>
+            <v-btn elevation="10" @click="register(work.id)">参加する</v-btn>
+            &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <v-btn elevation="10" @click="cancell(work.id)">キャンセル</v-btn>
             <br />
             <br />
           </v-card>
@@ -59,13 +59,51 @@ import axios from "axios";
 export default {
   data() {
     return {
+      dialog: null,
       works: [],
+      workId: "",
       workUsers: [],
-      usersName: [],
+      usersName: null,
+      userId: "",
     };
   },
 
-  methods: {},
+  methods: {
+    register: function (workId) {
+      var params = {
+        user_id: this.userId,
+        work_id: workId,
+      };
+      const url = process.env.VUE_APP_URL + "/user_works";
+      axios.post(url, params, {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      });
+    },
+    cancell: function (workId) {
+      var params = {
+        user_id: this.userId,
+        work_id: workId,
+      };
+      const url = process.env.VUE_APP_URL + "/user_work/cancell/";
+      axios.put(url, params, {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      });
+    },
+
+    open: function () {
+      this.dialog = true;
+    },
+  },
 
   mounted: function () {
     const url = process.env.VUE_APP_URL;
@@ -93,7 +131,6 @@ export default {
             })
             .then((response) => {
               this.workUsers.push(response.data);
-              console.log(this.workUsers);
             });
         }
         console.log(this.workUsers);
@@ -109,6 +146,7 @@ export default {
       })
       .then((response) => {
         this.usersName = response.data.data.name;
+        this.userId = response.data.data.id;
       });
   },
 };

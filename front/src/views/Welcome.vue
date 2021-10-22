@@ -2,7 +2,7 @@
   <div>
     <v-container class="text-center justify-center py-6">
       <h1>Welcome Page</h1>
-      <v-btn @click="open">ログイン</v-btn>
+      <v-btn @click="open">ログインはこちら</v-btn>
       <v-dialog v-model="dialog" max-width="600px">
         <v-card-text class="text-center white">
           <v-row>

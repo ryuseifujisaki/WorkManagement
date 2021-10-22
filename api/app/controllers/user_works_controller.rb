@@ -33,9 +33,13 @@ class UserWorksController < ApplicationController
     end
   end
 
-  # DELETE /user_works/1
-  def destroy
-    @user_work.destroy
+  # # DELETE /user_works/1
+  # def destroy
+  # end
+
+  def cancell
+    @user_work=UserWork.where(user_id:user_work_params[:user_id] , work_id:user_work_params[:work_id])
+    @user_work.destroy_all
   end
 
   private
