@@ -69,13 +69,13 @@ export default {
   },
 
   methods: {
-    register: function (workId) {
+    register: async function (workId) {
       var params = {
         user_id: this.userId,
         work_id: workId,
       };
       const url = process.env.VUE_APP_URL + "/user_works";
-      axios.post(url, params, {
+      await axios.post(url, params, {
         headers: {
           "Content-Type": "application/json",
           "access-token": localStorage.getItem("access-token"),
@@ -84,13 +84,13 @@ export default {
         },
       });
     },
-    cancell: function (workId) {
+    cancell: async function (workId) {
       var params = {
         user_id: this.userId,
         work_id: workId,
       };
       const url = process.env.VUE_APP_URL + "/user_work/cancell/";
-      axios.put(url, params, {
+      await axios.put(url, params, {
         headers: {
           "Content-Type": "application/json",
           "access-token": localStorage.getItem("access-token"),
@@ -105,9 +105,9 @@ export default {
     },
   },
 
-  mounted: function () {
+  mounted: async function () {
     const url = process.env.VUE_APP_URL;
-    axios
+    await axios
       .get(url + "/works", {
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export default {
         }
         console.log(this.workUsers);
       });
-    axios
+    await axios
       .get(url + "/api/v1/current_user/show", {
         headers: {
           "Content-Type": "application/json",
@@ -145,6 +145,8 @@ export default {
         },
       })
       .then((response) => {
+        console.log(response);
+        console.log(response.headers);
         this.usersName = response.data.data.name;
         this.userId = response.data.data.id;
       });
