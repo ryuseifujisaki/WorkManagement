@@ -20,6 +20,8 @@
           </v-row>
         </v-card-text>
       </v-dialog>
+      &nbsp; &nbsp; &nbsp;
+      <v-btn @click="open" to="/signup">新規登録はこちら</v-btn>
     </v-container>
   </div>
 </template>
