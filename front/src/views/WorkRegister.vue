@@ -2,6 +2,8 @@
   <div>
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Work Register</h1>
+      <p align="right">管理者専用ページ</p>
+      <p align="right">{{ this.userName }}</p>
       <v-row>
         <v-col cols="3"></v-col>
         <v-col cols="6">
@@ -28,6 +30,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      userName: null,
       name: null,
       limit: null,
       day: null,
@@ -68,6 +71,22 @@ export default {
           console.log(response);
         });
     },
+  },
+  mounted: function () {
+    const url = process.env.VUE_APP_URL;
+    axios
+      .get(url + "/api/v1/current_admin/show", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        this.userName = response.data.data.name;
+        console.log(this.userName);
+      });
   },
 };
 </script>

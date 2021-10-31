@@ -2,6 +2,7 @@
   <div>
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Admin Sign in</h1>
+      <p align="right">管理者専用ページ</p>
       <v-row>
         <v-col cols="4"></v-col>
         <v-col cols="4">
