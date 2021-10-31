@@ -5,6 +5,7 @@ import Welcome from "../views/Welcome.vue";
 import Signup from "../views/Signup.vue";
 import WorkRegister from "../views/WorkRegister.vue";
 import AdminSignin from "../views/AdminSignin.vue";
+import WorkEdit from "../views/WorkEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/adminsignin",
     name: "AdminSignin",
     component: AdminSignin,
+  },
+  {
+    path: "/workedit",
+    name: "WorkEdit",
+    component: WorkEdit,
   },
 ];
 
