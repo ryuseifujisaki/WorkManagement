@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Work from "../views/Work.vue";
 import Welcome from "../views/Welcome.vue";
 import Signup from "../views/Signup.vue";
+import WorkRegister from "../views/WorkRegister.vue";
+import AdminSignin from "../views/AdminSignin.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +32,16 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+  },
+  {
+    path: "/workregister",
+    name: "WorkRegister",
+    component: WorkRegister,
+  },
+  {
+    path: "/adminsignin",
+    name: "AdminSignin",
+    component: AdminSignin,
   },
 ];
 
