@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AdminHeader></AdminHeader>
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Work Edit</h1>
       <p align="right">管理者専用ページ</p>
@@ -48,6 +49,7 @@
 </template>
 <script>
 import axios from "axios";
+import AdminHeader from "@/components/AdminHeader.vue";
 export default {
   data() {
     return {
@@ -145,6 +147,9 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    AdminHeader,
   },
   methods: {
     open(row) {

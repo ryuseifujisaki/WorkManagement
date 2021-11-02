@@ -1,25 +1,6 @@
 <template>
   <div>
-    <v-card class="pa-12" color="indigo darken-2" flat>
-      <v-card elevation="12" width="256">
-        <v-navigation-drawer floating permanent>
-          <v-list dense rounded>
-            <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              :href="item.link"
-            >
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
-      </v-card>
-    </v-card>
+    <AdminHeader></AdminHeader>
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Work Register</h1>
       <p align="right">管理者専用ページ</p>
@@ -47,6 +28,7 @@
 </template>
 <script>
 import axios from "axios";
+import AdminHeader from "@/components/AdminHeader.vue";
 export default {
   data() {
     return {
@@ -60,19 +42,10 @@ export default {
       cloth: null,
       belonging: null,
       other: null,
-      items: [
-        {
-          title: "WorkRegister",
-          icon: "mdi-account-plus-outline",
-          link: "/workregister",
-        },
-        {
-          title: "WorkEdit",
-          icon: "mdi-account-edit-outline",
-          link: "/workedit",
-        },
-      ],
     };
+  },
+  components: {
+    AdminHeader,
   },
   methods: {
     register: function () {
