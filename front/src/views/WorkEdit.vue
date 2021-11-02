@@ -5,45 +5,86 @@
       <h1 class="justify-center">Work Edit</h1>
       <p align="right">管理者専用ページ</p>
       <p align="right">{{ this.userName }}</p>
-      <v-row>
-        <v-col cols="1"></v-col>
-        <v-col cols="10">
-          <v-data-table :headers="headers" :items="works" @click:row="open">
-          </v-data-table>
-          <v-dialog v-model="dialog" max-width="600px">
-            <v-card-text class="text-center white">
-              <v-row>
-                <v-col cols="2"></v-col>
-                <v-col cols="8">
-                  No:{{ this.id }}
-                  <br />
-                  案件:{{ this.name }}
-                  <br />
-                  人数:{{ this.limit }}
-                  <br />
-                  日付:{{ this.day }}
-                  <br />
-                  場所:{{ this.where }}
-                  <br />
-                  交通費:{{ this.carfare }}
-                  <br />
-                  内容:{{ this.content }}
-                  <br />
-                  服装:{{ this.cloth }}
-                  <br />
-                  持ち物:{{ this.belonging }}
-                  <br />
-                  その他:{{ this.other }}
-                  <br />
-                  <v-btn @click="workdelete">この案件を消去</v-btn>
-                </v-col>
-                <v-col cols="2"></v-col>
-              </v-row>
-            </v-card-text>
-          </v-dialog>
-        </v-col>
-        <v-col cols="1"></v-col>
-      </v-row>
+
+      <v-data-table :headers="headers" :items="works" @click:row="open">
+      </v-data-table>
+      <v-dialog v-model="dialog" max-width="600px">
+        <v-card-text class="text-center white">
+          <v-row>
+            <v-col cols="2"></v-col>
+            <v-col cols="8">
+              No:{{ this.id }}
+              <br />
+              案件:{{ this.name }}
+              <br />
+              人数:{{ this.limit }}
+              <br />
+              日付:{{ this.day }}
+              <br />
+              場所:{{ this.where }}
+              <br />
+              交通費:{{ this.carfare }}
+              <br />
+              内容:{{ this.content }}
+              <br />
+              服装:{{ this.cloth }}
+              <br />
+              持ち物:{{ this.belonging }}
+              <br />
+              その他:{{ this.other }}
+              <br />
+              <v-btn @click="workdelete">この案件を消去</v-btn>
+              &nbsp; &nbsp; &nbsp;
+              <v-btn @click="openedit">この案件を編集する</v-btn>
+              <v-dialog v-model="editDialog">
+                <v-row>
+                  <v-col cols="2"></v-col>
+                  <v-col cols="8">
+                    <v-card>
+                      <v-row>
+                        <v-col cols="2"></v-col>
+                        <v-col cols="8">
+                          <div class="text-center">
+                            <br />
+                            <h1>Edit</h1>
+                            <v-text-field label="Work_name" v-model="name">
+                            </v-text-field>
+                            <v-text-field
+                              label="Number of people"
+                              v-model="limit"
+                            >
+                            </v-text-field>
+                            <v-text-field label="Day" v-model="day">
+                            </v-text-field>
+                            <v-text-field label="money" v-model="money">
+                            </v-text-field>
+                            <v-text-field label="Where" v-model="where">
+                            </v-text-field>
+                            <v-text-field label="Carfare" v-model="carfare">
+                            </v-text-field>
+                            <v-text-field label="content" v-model="content">
+                            </v-text-field>
+                            <v-text-field label="cloth" v-model="cloth">
+                            </v-text-field>
+                            <v-text-field label="belonging" v-model="belonging">
+                            </v-text-field>
+                            <v-text-field label="other" v-model="other">
+                            </v-text-field>
+                            <v-btn @click="workedit">編集を完了します</v-btn>
+                          </div>
+                        </v-col>
+                        <v-col cols="2"></v-col>
+                      </v-row>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="2"></v-col>
+                </v-row>
+              </v-dialog>
+            </v-col>
+            <v-col cols="2"></v-col>
+          </v-row>
+        </v-card-text>
+      </v-dialog>
     </v-container>
   </div>
 </template>
@@ -54,11 +95,14 @@ export default {
   data() {
     return {
       dialog: false,
+      editDialog: false,
       search: "",
       userName: null,
+      id: null,
       name: null,
       limit: null,
       day: null,
+      money: null,
       where: null,
       carfare: null,
       content: null,
@@ -73,14 +117,14 @@ export default {
           align: "start",
           sortable: "false",
           value: "id",
-          width: `3%`,
+          width: `2%`,
         },
         {
           text: "Workname",
           align: "start",
           sortable: "false",
           value: "name",
-          width: `10%`,
+          width: `11%`,
         },
         {
           text: "People limit",
@@ -122,7 +166,7 @@ export default {
           align: "start",
           sortable: "false",
           value: "content",
-          width: `10%`,
+          width: `11%`,
         },
         {
           text: ":cloth",
@@ -143,7 +187,7 @@ export default {
           align: "start",
           sortable: "false",
           value: "other",
-          width: `10%`,
+          width: `15%`,
         },
       ],
     };
@@ -154,7 +198,6 @@ export default {
   methods: {
     open(row) {
       this.dialog = true;
-
       this.id = row.id;
       this.name = row.name;
       this.limit = row.limit;
@@ -180,6 +223,38 @@ export default {
         })
         .then((response) => {
           console.log(response);
+        });
+    },
+    openedit() {
+      this.dialog = false;
+      this.editDialog = true;
+    },
+    workedit: function () {
+      const url = process.env.VUE_APP_URL;
+      var params = {
+        name: this.name,
+        limit: this.limit,
+        day: this.day,
+        money: this.money,
+        where: this.where,
+        carfare: this.carfare,
+        content: this.content,
+        cloth: this.cloth,
+        belonging: this.belonging,
+        other: this.other,
+      };
+      axios
+        .put(url + "/works/" + this.id, params, {
+          headers: {
+            "Content-Type": "application/json",
+            "access-token": localStorage.getItem("access-token"),
+            client: localStorage.getItem("client"),
+            uid: localStorage.getItem("uid"),
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.editDialog = false;
         });
     },
   },
