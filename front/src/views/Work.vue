@@ -65,6 +65,7 @@ export default {
       workUsers: [],
       usersName: null,
       userId: "",
+      flag: null,
     };
   },
 
@@ -107,6 +108,21 @@ export default {
 
   mounted: async function () {
     const url = process.env.VUE_APP_URL;
+    await axios
+      .get(url + "/api/v1/current_user/get_user_signin", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        this.flag = response.data.flag;
+        if (this.flag == false) {
+          window.location.href = "/";
+        }
+      });
     await axios
       .get(url + "/works", {
         headers: {
