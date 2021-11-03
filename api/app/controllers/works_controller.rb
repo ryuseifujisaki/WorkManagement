@@ -15,7 +15,6 @@ class WorksController < ApplicationController
   # POST /works
   def create
     @work = Work.new(work_params)
-
     if @work.save
       render json: @work, status: :created, location: @work
     else

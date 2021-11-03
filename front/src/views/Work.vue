@@ -1,5 +1,18 @@
 <template>
+  <!-- すでに参加していたらsnackbarを表示 -->
   <div>
+    <div v-if="snackbar === true">
+      <v-snackbar type="error" v-model="snackbar">
+        <v-row>
+          <v-col cols="1"></v-col>
+          <v-col cols="10">
+            {{ text }}
+            <v-btn @click="close">閉じる</v-btn>
+          </v-col>
+          <v-col cols="1"></v-col>
+        </v-row>
+      </v-snackbar>
+    </div>
     <v-container class="text-center justify-center py-6">
       <h1 class="justify-center">Work Information</h1>
     </v-container>
@@ -66,24 +79,42 @@ export default {
       usersName: null,
       userId: "",
       flag: null,
+      check: "check",
+      snackbar: false,
+      text: "すでに参加しています",
     };
   },
 
   methods: {
+    close() {
+      this.snackbar = false;
+    },
+    open: function () {
+      this.dialog = true;
+    },
+
     register: async function (workId) {
       var params = {
         user_id: this.userId,
         work_id: workId,
       };
       const url = process.env.VUE_APP_URL + "/user_works";
-      await axios.post(url, params, {
-        headers: {
-          "Content-Type": "application/json",
-          "access-token": localStorage.getItem("access-token"),
-          client: localStorage.getItem("client"),
-          uid: localStorage.getItem("uid"),
-        },
-      });
+      await axios
+        .post(url, params, {
+          headers: {
+            "Content-Type": "application/json",
+            "access-token": localStorage.getItem("access-token"),
+            client: localStorage.getItem("client"),
+            uid: localStorage.getItem("uid"),
+          },
+        })
+        .then((response) => {
+          this.check = response.data.id;
+          console.log(this.check);
+          if (this.check == undefined) {
+            this.snackbar = true;
+          }
+        });
     },
     cancell: async function (workId) {
       var params = {
@@ -99,10 +130,6 @@ export default {
           uid: localStorage.getItem("uid"),
         },
       });
-    },
-
-    open: function () {
-      this.dialog = true;
     },
   },
 

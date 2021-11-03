@@ -1,5 +1,5 @@
 class Api::V1::WorkUserApiController < ApplicationController
-
+  # workに参加しているuserのapi作成
   def get_work_user
     @work = Work.find(params[:id])
     workusers =@work.users
