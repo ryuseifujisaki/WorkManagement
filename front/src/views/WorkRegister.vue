@@ -36,12 +36,14 @@ export default {
       name: null,
       limit: null,
       day: null,
+      money: null,
       where: null,
       carfare: null,
       content: null,
       cloth: null,
       belonging: null,
       other: null,
+      flag: null,
     };
   },
   components: {
@@ -79,6 +81,21 @@ export default {
   },
   mounted: function () {
     const url = process.env.VUE_APP_URL;
+    axios
+      .get(url + "/api/v1/current_admin/get_admin_signin", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        this.flag = response.data.flag;
+        if (this.flag == false) {
+          window.location.href = "/adminsignin";
+        }
+      });
     axios
       .get(url + "/api/v1/current_admin/show", {
         headers: {
