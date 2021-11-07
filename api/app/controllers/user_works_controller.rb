@@ -15,8 +15,15 @@ class UserWorksController < ApplicationController
 
   # POST /user_works
   def create
-    #同じ条件のアクティブレコードがなければ登録させる
-    if @user_work = UserWork.find_by(user_id:user_work_params[:user_id] , work_id:user_work_params[:work_id]) == nil
+    # 登録しようとしているworkの検索
+    @work = Work.find(user_work_params[:work_id])
+    work_limit_num = (@work.limit).to_i
+    puts work_limit_num
+    #登録しているworkの現在の参加人数取得
+    work_user_num = @work.users.length
+    puts work_user_num
+    #同じ条件のアクティブレコードがないかつ参加人数が超えてなければ登録させる
+    if @user_work = (UserWork.find_by(user_id:user_work_params[:user_id] , work_id:user_work_params[:work_id])) == nil && (work_limit_num > work_user_num)
       @user_work = UserWork.new(user_work_params)
       if @user_work.save
         render json: @user_work, status: :created, location: @user_work

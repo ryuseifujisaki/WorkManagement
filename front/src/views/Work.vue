@@ -3,14 +3,8 @@
   <div>
     <div v-if="snackbar === true">
       <v-snackbar type="error" v-model="snackbar">
-        <v-row>
-          <v-col cols="1"></v-col>
-          <v-col cols="10">
-            {{ text }}
-            <v-btn @click="close">閉じる</v-btn>
-          </v-col>
-          <v-col cols="1"></v-col>
-        </v-row>
+        {{ text }}
+        <v-btn @click="close">閉じる</v-btn>
       </v-snackbar>
     </div>
     <v-container class="text-center justify-center py-6">
@@ -38,7 +32,7 @@
             <br />
             交通費:{{ work.carfare }}
             <br />
-            募集人員:{{ work.limit }}
+            募集人員:{{ work.limit }}人
             <br />
             作業内容:{{ work.content }}
             <br />
@@ -81,7 +75,7 @@ export default {
       flag: null,
       check: "check",
       snackbar: false,
-      text: "すでに参加しています",
+      text: "すでに参加しているかこの案件の人数が満たしています",
     };
   },
 

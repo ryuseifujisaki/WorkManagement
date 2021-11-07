@@ -27,4 +27,11 @@ User.seed(:id,
     password: "password",
     uid: "shiro@email.com"
   },
+  {
+    id:5,
+    name: "test",
+    email: "test@email.com",
+    password: "password",
+    uid: "shiro@email.com"
+  },
   )
