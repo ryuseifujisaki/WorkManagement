@@ -107,6 +107,8 @@ export default {
           console.log(this.check);
           if (this.check == undefined) {
             this.snackbar = true;
+          } else {
+            location.reload();
           }
         });
     },
@@ -116,14 +118,19 @@ export default {
         work_id: workId,
       };
       const url = process.env.VUE_APP_URL + "/user_work/cancell/";
-      await axios.put(url, params, {
-        headers: {
-          "Content-Type": "application/json",
-          "access-token": localStorage.getItem("access-token"),
-          client: localStorage.getItem("client"),
-          uid: localStorage.getItem("uid"),
-        },
-      });
+      await axios
+        .put(url, params, {
+          headers: {
+            "Content-Type": "application/json",
+            "access-token": localStorage.getItem("access-token"),
+            client: localStorage.getItem("client"),
+            uid: localStorage.getItem("uid"),
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          location.reload();
+        });
     },
     //処理を待つ関数
     blockTime: async function (timeout) {
