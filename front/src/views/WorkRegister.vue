@@ -76,6 +76,7 @@ export default {
         .then((response) => {
           console.log("succece");
           console.log(response);
+          location.reload();
         });
     },
   },

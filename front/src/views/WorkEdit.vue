@@ -224,6 +224,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          location.reload();
         });
     },
     openedit() {
@@ -256,6 +257,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.editDialog = false;
+          location.reload();
         });
     },
   },
