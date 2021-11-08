@@ -125,6 +125,17 @@ export default {
         },
       });
     },
+    //処理を待つ関数
+    blockTime: async function (timeout) {
+      const startTime = Date.now();
+      // `timeout`ミリ秒経過するまで無限ループをする
+      for (;;) {
+        const diffTime = Date.now() - startTime;
+        if (diffTime >= timeout) {
+          return; // 指定時間経過したら関数の実行を終了
+        }
+      }
+    },
   },
 
   mounted: async function () {
@@ -157,6 +168,7 @@ export default {
         console.log(response.data);
         this.works = response.data;
         for (let i = 1; i <= this.works.length; i++) {
+          this.blockTime(100);
           axios
             .get(url + "/api/v1/work_user/get_work_user/" + i, {
               headers: {
