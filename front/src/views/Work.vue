@@ -86,7 +86,6 @@ export default {
     open: function () {
       this.dialog = true;
     },
-
     register: async function (workId) {
       var params = {
         user_id: this.userId,
@@ -159,7 +158,7 @@ export default {
       .then((response) => {
         this.flag = response.data.flag;
         if (this.flag == false) {
-          window.location.href = "/";
+          this.$router.push("/");
         }
       });
     await axios
