@@ -262,6 +262,7 @@ export default {
     },
   },
   mounted: function () {
+    //ログインしていないページ遷移の拒否
     const url = process.env.VUE_APP_URL;
     axios
       .get(url + "/api/v1/current_admin/get_admin_signin", {
@@ -275,7 +276,7 @@ export default {
       .then((response) => {
         this.flag = response.data.flag;
         if (this.flag == false) {
-          window.location.href = "/adminsignin";
+          this.$router.push("/adminsignin");
         }
       });
     axios

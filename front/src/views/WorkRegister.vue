@@ -94,7 +94,7 @@ export default {
       .then((response) => {
         this.flag = response.data.flag;
         if (this.flag == false) {
-          window.location.href = "/adminsignin";
+          this.$router.push("/adminsignin");
         }
       });
     axios
