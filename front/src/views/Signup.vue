@@ -9,6 +9,29 @@
             <br />
             <v-text-field label="name" v-model="name"> </v-text-field>
             <br />
+            <v-select
+              v-model="grade"
+              :hint="`${select.grade}`"
+              :items="grades"
+              item-text="grade"
+              label="grade"
+              persistent-hint
+              return-object
+              single-line
+            ></v-select>
+            <br />
+            <v-select
+              v-model="course"
+              :hint="`${select.course}`"
+              :items="courses"
+              item-text="course"
+              label="course"
+              persistent-hint
+              return-object
+              single-line
+            ></v-select>
+
+            <br />
             <v-text-field label="email" v-model="email"> </v-text-field>
             <br />
             <v-text-field label="password" v-model="password"> </v-text-field>
@@ -36,7 +59,37 @@ export default {
       name: null,
       email: null,
       password: null,
+      course: null,
+      grade: null,
       password_confirmation: null,
+      select: { course: "例)機械創造工学課程", grade: "例)B4" },
+
+      courses: [
+        { course: "機械創造工学課程" },
+        { course: "電気電子情報工学課程" },
+        { course: "物質材料工学課程" },
+        { course: "環境社会基盤工学課程" },
+        { course: "生物機能工学課程" },
+        { course: "情報・経営システム工学課程" },
+        { course: "機械創造工学専攻" },
+        { course: "電気電子情報工学専攻" },
+        { course: "物質材料工学専攻" },
+        { course: "環境社会基盤工学専攻" },
+        { course: "生物機能工学専攻" },
+        { course: "情報・経営システム工学専攻" },
+        { course: "原子力,システム安全,技ノベ,その他" },
+      ],
+      grades: [
+        { grade: "B1" },
+        { grade: "B2" },
+        { grade: "B3" },
+        { grade: "B4" },
+        { grade: "M1" },
+        { grade: "M2" },
+        { grade: "D1" },
+        { grade: "D2" },
+        { grade: "D3" },
+      ],
     };
   },
   methods: {
@@ -45,6 +98,8 @@ export default {
       var params = new URLSearchParams();
       params.append("name", this.name);
       params.append("email", this.email);
+      params.append("grade", this.grade.grade);
+      params.append("course", this.course.course);
       params.append("password", this.password);
       params.append("password_confirmation", this.password_confirmation);
       axios.defaults.headers.common["Content-Type"] = "application/json";
