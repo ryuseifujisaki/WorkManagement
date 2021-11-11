@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       #user
       get "current_user/show" => "current_user_api#show"
       get "current_user/new" => "current_user_api#new"
-      get "current_user/get_user_detail" => "current_user_api#get_user_detail"
+      #userの全情報ルート
+      get "current_user/index" => "current_user_api#index"
       #user_signin情報取得api
       get "current_user/get_user_signin" => "current_user_api#get_user_signin"
       #admin
