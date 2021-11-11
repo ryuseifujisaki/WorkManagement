@@ -35,6 +35,11 @@ export default {
           icon: "mdi-account-edit-outline",
           link: "/workedit",
         },
+        {
+          title: "AlluserInformation",
+          icon: "mdi-account-check",
+          link: "/adminalluser",
+        },
       ],
     };
   },
