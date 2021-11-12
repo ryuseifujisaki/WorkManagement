@@ -30,7 +30,8 @@
               return-object
               single-line
             ></v-select>
-
+            <br />
+            <v-text-field label="tel" v-model="tel"> </v-text-field>
             <br />
             <v-text-field label="email" v-model="email"> </v-text-field>
             <br />
@@ -61,6 +62,7 @@ export default {
       password: null,
       course: null,
       grade: null,
+      tel: null,
       password_confirmation: null,
       select: { course: "例)機械創造工学課程", grade: "例)B4" },
 
@@ -98,6 +100,7 @@ export default {
       var params = new URLSearchParams();
       params.append("name", this.name);
       params.append("email", this.email);
+      params.append("tel", this.tel);
       params.append("grade", this.grade.grade);
       params.append("course", this.course.course);
       params.append("password", this.password);
