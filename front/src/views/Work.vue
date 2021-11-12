@@ -146,6 +146,7 @@ export default {
 
   mounted: async function () {
     const url = process.env.VUE_APP_URL;
+    //直アクセスの拒否
     await axios
       .get(url + "/api/v1/current_user/get_user_signin", {
         headers: {

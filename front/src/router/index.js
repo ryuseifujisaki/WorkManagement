@@ -6,11 +6,13 @@ import Signup from "../views/Signup.vue";
 import WorkRegister from "../views/WorkRegister.vue";
 import AdminSignin from "../views/AdminSignin.vue";
 import WorkEdit from "../views/WorkEdit.vue";
-import AdminAllUser from "../views/AdminAllUser.vue"
+import AdminAllUser from "../views/AdminAllUser.vue";
+import UserInformation from "../views/UserInformation.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
+  //一番最初のページ
   {
     path: "/",
     name: "Welcome",
@@ -25,35 +27,47 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  //userが案件の参加取り消しができるページ
   {
     path: "/work",
     name: "Work",
     component: Work,
   },
+  //新規登録ページ
   {
     path: "/signup",
     name: "Signup",
     component: Signup,
   },
+  //管理者が案件を登録できるページ
   {
     path: "/workregister",
     name: "WorkRegister",
     component: WorkRegister,
   },
+  //管理者のサインインページ
   {
     path: "/adminsignin",
     name: "AdminSignin",
     component: AdminSignin,
   },
+  //管理者が案件を編集消去できるページ
   {
     path: "/workedit",
     name: "WorkEdit",
     component: WorkEdit,
   },
+  //管理者が全User情報を見れるページ
   {
     path:"/adminalluser",
     name: "AdminAllUser",
     component: AdminAllUser,
+  },
+  //管理者が全User情報を見れるページ
+  {
+    path:"/userinformation",
+    name: "UserInformation",
+    component: UserInformation,
   }
 ];
 
