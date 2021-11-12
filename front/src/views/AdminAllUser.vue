@@ -34,6 +34,7 @@ export default {
       grade: null,
       course: null,
       email: null,
+      tel: null,
       headers: [
         {
           text: "name",
@@ -58,6 +59,12 @@ export default {
           align: "start",
           sortable: "false",
           value: "email",
+        },
+        {
+          text: "tel",
+          align: "start",
+          sortable: "false",
+          value: "tel",
         },
       ],
     };
