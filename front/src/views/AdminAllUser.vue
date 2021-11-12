@@ -1,8 +1,12 @@
 <template>
   <div>
+    <!--ヘッダー表示-->
     <AdminHeader></AdminHeader>
+    <!--全user情報表示-->
     <v-container class="text-center justify-center py-6">
       <h1>All User Information</h1>
+      <p align="right">管理者専用ページ</p>
+      <p align="right">{{ this.userName }}</p>
       <v-row>
         <v-col cols="2"></v-col>
         <v-col cols="8">
@@ -35,6 +39,7 @@ export default {
       course: null,
       email: null,
       tel: null,
+      userName: null,
       headers: [
         {
           text: "name",
@@ -74,6 +79,23 @@ export default {
   },
   mounted: async function () {
     const url = process.env.VUE_APP_URL;
+    //直アクセス禁止
+    axios
+      .get(url + "/api/v1/current_admin/get_admin_signin", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        this.flag = response.data.flag;
+        if (this.flag == false) {
+          this.$router.push("/adminsignin");
+        }
+      });
+    //全User情報取得
     axios
       .get(url + "/api/v1/current_user/index", {
         headers: {
@@ -86,6 +108,19 @@ export default {
       .then((response) => {
         console.log(response.data.data);
         this.users = response.data.data;
+      });
+    //adminuser情報取得
+    axios
+      .get(url + "/api/v1/current_admin/show", {
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("access-token"),
+          client: localStorage.getItem("client"),
+          uid: localStorage.getItem("uid"),
+        },
+      })
+      .then((response) => {
+        this.userName = response.data.data.name;
       });
   },
 };

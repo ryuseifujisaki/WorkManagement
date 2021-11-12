@@ -5,7 +5,6 @@
       <h1 class="justify-center">Work Edit</h1>
       <p align="right">管理者専用ページ</p>
       <p align="right">{{ this.userName }}</p>
-
       <v-data-table :headers="headers" :items="works" @click:row="open">
       </v-data-table>
       <v-dialog v-model="dialog" max-width="600px">
@@ -279,6 +278,7 @@ export default {
           this.$router.push("/adminsignin");
         }
       });
+    //adminuser情報取得
     axios
       .get(url + "/api/v1/current_admin/show", {
         headers: {
@@ -291,6 +291,7 @@ export default {
       .then((response) => {
         this.userName = response.data.data.name;
       });
+    //work情報取得
     axios
       .get(url + "/works", {
         headers: {
