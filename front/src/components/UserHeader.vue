@@ -31,9 +31,14 @@ export default {
           link: "/work",
         },
         {
-          title: "User Information",
-          icon: "mdi-account",
+          title: "All User Information",
+          icon: "mdi-information",
           link: "/userinformation",
+        },
+        {
+          title: "My account",
+          icon: "mdi-account",
+          link: "/myaccount",
         },
       ],
     };

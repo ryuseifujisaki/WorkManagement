@@ -7,7 +7,8 @@ import WorkRegister from "../views/WorkRegister.vue";
 import AdminSignin from "../views/AdminSignin.vue";
 import WorkEdit from "../views/WorkEdit.vue";
 import AdminAllUser from "../views/AdminAllUser.vue";
-import UserInformation from "../views/UserInformation.vue"
+import UserInformation from "../views/UserInformation.vue";
+import MyAccount from "../views/MyAccount.vue";
 
 Vue.use(VueRouter);
 
@@ -68,6 +69,11 @@ const routes = [
     path:"/userinformation",
     name: "UserInformation",
     component: UserInformation,
+  },
+  {
+    path:"/myaccount",
+    name: "MyAccount",
+    component: MyAccount,
   }
 ];
 

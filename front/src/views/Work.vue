@@ -85,12 +85,6 @@ export default {
   },
 
   methods: {
-    close() {
-      this.snackbar = false;
-    },
-    open: function () {
-      this.dialog = true;
-    },
     register: async function (workId) {
       var params = {
         user_id: this.userId,
