@@ -1,6 +1,7 @@
 <template>
   <!-- すでに参加していたらsnackbarを表示 -->
   <div>
+    <UserHeader></UserHeader>
     <div v-if="snackbar === true">
       <v-snackbar type="error" v-model="snackbar">
         {{ text }}
@@ -63,6 +64,7 @@
 
 <script>
 import axios from "axios";
+import UserHeader from "@/components/UserHeader.vue";
 export default {
   data() {
     return {
@@ -77,6 +79,9 @@ export default {
       snackbar: false,
       text: "すでに参加しているかこの案件の人数が満たしています",
     };
+  },
+  components: {
+    UserHeader,
   },
 
   methods: {

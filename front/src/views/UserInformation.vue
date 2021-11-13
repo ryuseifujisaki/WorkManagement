@@ -1,5 +1,6 @@
 <template>
   <div>
+    <UserHeader></UserHeader>
     <!--全user情報表示-->
     <v-container class="text-center justify-center py-6">
       <h1>All User Information</h1>
@@ -25,6 +26,7 @@
 </template>
 <script>
 import axios from "axios";
+import UserHeader from "@/components/UserHeader.vue";
 export default {
   data() {
     return {
@@ -69,6 +71,9 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    UserHeader,
   },
   mounted: async function () {
     const url = process.env.VUE_APP_URL;
