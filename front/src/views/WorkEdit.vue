@@ -35,6 +35,7 @@
               <v-btn @click="workdelete">この案件を消去</v-btn>
               &nbsp; &nbsp; &nbsp;
               <v-btn @click="openedit">この案件を編集する</v-btn>
+              <!-- 編集ダイアログ -->
               <v-dialog v-model="editDialog">
                 <v-row>
                   <v-col cols="2"></v-col>
@@ -46,30 +47,66 @@
                           <div class="text-center">
                             <br />
                             <h1>Edit</h1>
-                            <v-text-field label="Work_name" v-model="name">
-                            </v-text-field>
-                            <v-text-field
-                              label="Number of people"
-                              v-model="limit"
-                            >
-                            </v-text-field>
-                            <v-text-field label="Day" v-model="day">
-                            </v-text-field>
-                            <v-text-field label="money" v-model="money">
-                            </v-text-field>
-                            <v-text-field label="Where" v-model="where">
-                            </v-text-field>
-                            <v-text-field label="Carfare" v-model="carfare">
-                            </v-text-field>
-                            <v-text-field label="content" v-model="content">
-                            </v-text-field>
-                            <v-text-field label="cloth" v-model="cloth">
-                            </v-text-field>
-                            <v-text-field label="belonging" v-model="belonging">
-                            </v-text-field>
-                            <v-text-field label="other" v-model="other">
-                            </v-text-field>
-                            <v-btn @click="workedit">編集を完了します</v-btn>
+                            <v-form ref="form" lazy-validation>
+                              <v-text-field
+                                label="Work_name"
+                                v-model="name"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="Number of people"
+                                v-model="limit"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="Day"
+                                v-model="day"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="money"
+                                v-model="money"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="Where"
+                                v-model="where"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field label="Carfare" v-model="carfare">
+                              </v-text-field>
+                              <v-text-field
+                                label="content"
+                                v-model="content"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="cloth"
+                                v-model="cloth"
+                                :rules="rules"
+                              >
+                              </v-text-field>
+                              <v-text-field
+                                label="belonging"
+                                v-model="belonging"
+                              >
+                              </v-text-field>
+                              <v-text-field label="other" v-model="other">
+                              </v-text-field>
+                              <v-btn
+                                @click="
+                                  validate();
+                                  workedit;
+                                "
+                                >編集を完了します</v-btn
+                              >
+                            </v-form>
                           </div>
                         </v-col>
                         <v-col cols="2"></v-col>
@@ -98,16 +135,16 @@ export default {
       search: "",
       userName: null,
       id: null,
-      name: null,
-      limit: null,
-      day: null,
-      money: null,
-      where: null,
-      carfare: null,
-      content: null,
-      cloth: null,
-      belonging: null,
-      other: null,
+      name: "",
+      limit: "",
+      day: "",
+      money: "",
+      where: "",
+      carfare: "",
+      content: "",
+      cloth: "",
+      belonging: "",
+      other: "",
       flag: null,
       works: [],
       work: [],
@@ -190,12 +227,15 @@ export default {
           width: `15%`,
         },
       ],
+      //rule規則
+      rules: [(v) => !!v || "必須項目"],
     };
   },
   components: {
     AdminHeader,
   },
   methods: {
+    //テーブル列クリック関数
     open(row) {
       this.dialog = true;
       this.id = row.id;
@@ -210,6 +250,7 @@ export default {
       this.belonging = row.belonging;
       this.other = row.other;
     },
+    //案件消去
     workdelete: function () {
       const url = process.env.VUE_APP_URL;
       axios
@@ -226,10 +267,16 @@ export default {
           location.reload();
         });
     },
+    //ダイアログオープン
     openedit() {
       this.dialog = false;
       this.editDialog = true;
     },
+    //入力規制
+    validate() {
+      this.$refs.form.validate();
+    },
+
     workedit: function () {
       const url = process.env.VUE_APP_URL;
       var params = {
