@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="8">
-            <v-form ref="test_form" lazy-validation>
+            <v-form ref="form" lazy-validation>
               <v-text-field label="name" v-model="name" :rules="rules" required>
               </v-text-field>
               <br />
@@ -48,7 +48,13 @@
               >
               </v-text-field>
               <br />
-              <v-btn @click="register">新規作成</v-btn>
+              <v-btn
+                @click="
+                  validate();
+                  register;
+                "
+                >新規作成</v-btn
+              >
               <br />
             </v-form>
           </v-col>
@@ -118,8 +124,7 @@ export default {
     };
   },
   methods: {
-    register: function () {
-      this.$refs.test_form.validate();
+    register: async function () {
       const url = process.env.VUE_APP_URL + "/api/auth";
       var params = new URLSearchParams();
       params.append("name", this.name);
@@ -146,6 +151,10 @@ export default {
           return error;
         }
       );
+    },
+    //入力規制
+    validate() {
+      this.$refs.form.validate();
     },
   },
 };
