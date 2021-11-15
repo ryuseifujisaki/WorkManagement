@@ -6,45 +6,51 @@
         <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="8">
-            <br />
-            <v-text-field label="name" v-model="name"> </v-text-field>
-            <br />
-            <v-select
-              v-model="grade"
-              :hint="`${select.grade}`"
-              :items="grades"
-              item-text="grade"
-              label="grade"
-              persistent-hint
-              return-object
-              single-line
-            ></v-select>
-            <br />
-            <v-select
-              v-model="course"
-              :hint="`${select.course}`"
-              :items="courses"
-              item-text="course"
-              label="course"
-              persistent-hint
-              return-object
-              single-line
-            ></v-select>
-            <br />
-            <v-text-field label="tel" v-model="tel"> </v-text-field>
-            <br />
-            <v-text-field label="email" v-model="email"> </v-text-field>
-            <br />
-            <v-text-field label="password" v-model="password"> </v-text-field>
-            <br />
-            <v-text-field
-              label="password_confirmation"
-              v-model="password_confirmation"
-            >
-            </v-text-field>
-            <br />
-            <v-btn @click="register">新規作成</v-btn>
-            <br />
+            <v-form ref="test_form" lazy-validation>
+              <v-text-field label="name" v-model="name" :rules="rules" required>
+              </v-text-field>
+              <br />
+              <v-select
+                v-model="grade"
+                :hint="`${select.grade}`"
+                :items="grades"
+                item-text="grade"
+                label="grade"
+                persistent-hint
+                return-object
+                single-line
+                :rules="rules"
+              ></v-select>
+              <br />
+              <v-select
+                v-model="course"
+                :hint="`${select.course}`"
+                :items="courses"
+                item-text="course"
+                label="course"
+                persistent-hint
+                return-object
+                single-line
+                :rules="rules"
+              ></v-select>
+              <br />
+              <v-text-field label="tel" v-model="tel" :rules="telRules">
+              </v-text-field>
+              <br />
+              <v-text-field label="email" v-model="email" :rules="emailRules">
+              </v-text-field>
+              <br />
+              <v-text-field label="password" v-model="password"> </v-text-field>
+              <br />
+              <v-text-field
+                label="password_confirmation"
+                v-model="password_confirmation"
+              >
+              </v-text-field>
+              <br />
+              <v-btn @click="register">新規作成</v-btn>
+              <br />
+            </v-form>
           </v-col>
           <v-col cols="2"></v-col>
         </v-row>
@@ -57,13 +63,30 @@ import axios from "axios";
 export default {
   data() {
     return {
-      name: null,
-      email: null,
-      password: null,
-      course: null,
-      grade: null,
-      tel: null,
+      name: "",
+      email: "",
+      password: "",
+      course: "",
+      grade: "",
+      tel: "",
       password_confirmation: null,
+
+      //送信が成功したかどうかのフラグ
+      valid: true,
+      //name,grade,course,規則
+      rules: [(v) => !!v || "必須項目"],
+      //email規則
+      emailRules: [
+        (v) => !!v || "必須項目",
+        (v) => /.+@.+\..+/.test(v) || "不適切なメールアドレスです",
+      ],
+      //tel規則
+      telRules: [
+        (v) => !!v || "必須項目",
+        (v) => (v && /^[0-9０-９]+$/) || "適切に入力してください",
+        (v) => (v && v.length == 11) || "電話番号が足りません",
+      ],
+      //セレクトボックス値
       select: { course: "例)機械創造工学課程", grade: "例)B4" },
 
       courses: [
@@ -96,6 +119,7 @@ export default {
   },
   methods: {
     register: function () {
+      this.$refs.test_form.validate();
       const url = process.env.VUE_APP_URL + "/api/auth";
       var params = new URLSearchParams();
       params.append("name", this.name);
