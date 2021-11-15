@@ -51,36 +51,59 @@
                     <v-col cols="8">
                       <v-container class="text-center justify-center py-6">
                         <h2>Account edit</h2>
-                        <v-text-field label="name" v-model="name">
-                        </v-text-field>
-                        <v-text-field label="email" v-model="email">
-                        </v-text-field>
-                        <v-text-field label="tel" v-model="tel"> </v-text-field>
-                        <v-select
-                          v-model="grade"
-                          :hint="`${select.grade}`"
-                          :items="grades"
-                          item-text="grade"
-                          label="grade"
-                          persistent-hint
-                          return-object
-                          single-line
-                        >
-                        </v-select>
-                        <v-select
-                          v-model="course"
-                          :hint="`${select.course}`"
-                          :items="courses"
-                          item-text="course"
-                          label="course"
-                          persistent-hint
-                          return-object
-                          single-line
-                        ></v-select>
-                        <br />
-                        <v-btn @click="close">戻る</v-btn>
-                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                        <v-btn @click="edit">編集の確定</v-btn>
+                        <v-form ref="form" lazy-validation>
+                          <v-text-field
+                            label="name"
+                            v-model="name"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="email"
+                            v-model="email"
+                            :rules="emailRules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="tel"
+                            v-model="tel"
+                            :rules="telRules"
+                          >
+                          </v-text-field>
+                          <v-select
+                            v-model="grade"
+                            :hint="`${select.grade}`"
+                            :items="grades"
+                            item-text="grade"
+                            label="grade"
+                            persistent-hint
+                            return-object
+                            single-line
+                            :rules="rules"
+                          >
+                          </v-select>
+                          <v-select
+                            v-model="course"
+                            :hint="`${select.course}`"
+                            :items="courses"
+                            item-text="course"
+                            label="course"
+                            persistent-hint
+                            return-object
+                            single-line
+                            :rules="rules"
+                          ></v-select>
+                          <br />
+                          <v-btn @click="close">戻る</v-btn>
+                          &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                          <v-btn
+                            @click="
+                              validate();
+                              edit;
+                            "
+                            >編集の確定</v-btn
+                          >
+                        </v-form>
                       </v-container>
                     </v-col>
                     <v-col cols="2"></v-col>
@@ -103,13 +126,26 @@ import UserHeader from "@/components/UserHeader.vue";
 export default {
   data() {
     return {
-      name: null,
-      email: null,
-      grade: null,
-      tel: null,
-      course: null,
+      name: "",
+      email: "",
+      grade: "",
+      tel: "",
+      course: "",
       dialog: false,
       select: { course: "例)機械創造工学課程", grade: "例)B4" },
+      //入力規則
+      rules: [(v) => !!v || "必須項目"],
+      //email規則
+      emailRules: [
+        (v) => !!v || "必須項目",
+        (v) => /.+@.+\..+/.test(v) || "不適切なメールアドレスです",
+      ],
+      //tel規則
+      telRules: [
+        (v) => !!v || "必須項目",
+        (v) => (v && /^[0-9０-９]+$/) || "適切に入力してください",
+        (v) => (v && v.length == 11) || "電話番号が足りません",
+      ],
 
       courses: [
         { course: "機械創造工学課程" },
@@ -150,6 +186,10 @@ export default {
     //ダイアログクローズ
     close: function () {
       this.dialog = false;
+    },
+    //入力規則
+    validate() {
+      this.$refs.form.validate();
     },
     //編集の確定
     edit: function () {
