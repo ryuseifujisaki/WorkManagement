@@ -8,18 +8,36 @@
       <v-row>
         <v-col cols="3"></v-col>
         <v-col cols="6">
-          <v-text-field label="Work_name" v-model="name"> </v-text-field>
-          <v-text-field label="Number of people" v-model="limit">
-          </v-text-field>
-          <v-text-field label="Day" v-model="day"> </v-text-field>
-          <v-text-field label="money" v-model="money"> </v-text-field>
-          <v-text-field label="Where" v-model="where"> </v-text-field>
-          <v-text-field label="Carfare" v-model="carfare"> </v-text-field>
-          <v-text-field label="content" v-model="content"> </v-text-field>
-          <v-text-field label="cloth" v-model="cloth"> </v-text-field>
-          <v-text-field label="belonging" v-model="belonging"> </v-text-field>
-          <v-text-field label="other" v-model="other"> </v-text-field>
-          <v-btn @click="register">register</v-btn>
+          <v-form ref="form" lazy-validation>
+            <v-text-field label="Work_name" v-model="name" :rules="rules">
+            </v-text-field>
+            <v-text-field
+              label="Number of people"
+              v-model="limit"
+              :rules="rules"
+            >
+            </v-text-field>
+            <v-text-field label="Day" v-model="day" :rules="rules">
+            </v-text-field>
+            <v-text-field label="money" v-model="money" :rules="rules">
+            </v-text-field>
+            <v-text-field label="Where" v-model="where" :rules="rules">
+            </v-text-field>
+            <v-text-field label="Carfare" v-model="carfare"> </v-text-field>
+            <v-text-field label="content" v-model="content" :rules="rules">
+            </v-text-field>
+            <v-text-field label="cloth" v-model="cloth" :rules="rules">
+            </v-text-field>
+            <v-text-field label="belonging" v-model="belonging"> </v-text-field>
+            <v-text-field label="other" v-model="other"> </v-text-field>
+            <v-btn
+              @click="
+                validate();
+                register;
+              "
+              >register</v-btn
+            >
+          </v-form>
         </v-col>
         <v-col cols="3"></v-col>
       </v-row>
@@ -32,18 +50,21 @@ import AdminHeader from "@/components/AdminHeader.vue";
 export default {
   data() {
     return {
-      userName: null,
-      name: null,
-      limit: null,
-      day: null,
-      money: null,
-      where: null,
-      carfare: null,
-      content: null,
-      cloth: null,
-      belonging: null,
-      other: null,
+      userName: "",
+      name: "",
+      limit: "",
+      day: "",
+      money: "",
+      where: "",
+      carfare: "",
+      content: "",
+      cloth: "",
+      belonging: "",
+      other: "",
       flag: null,
+      valid: true,
+      //rule規則
+      rules: [(v) => !!v || "必須項目"],
     };
   },
   components: {
@@ -78,6 +99,10 @@ export default {
           console.log(response);
           location.reload();
         });
+    },
+    //入力規制
+    validate() {
+      this.$refs.form.validate();
     },
   },
   mounted: function () {
