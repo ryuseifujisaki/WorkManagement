@@ -13,8 +13,8 @@
     </v-container>
     <h3 class="text-right justify px-9">ようこそ {{ this.usersName }}</h3>
     <v-row>
-      <v-col cols="3"></v-col>
-      <v-col cols="6">
+      <v-col cols="2"></v-col>
+      <v-col cols="8">
         <v-form
           v-for="work in works"
           :key="work.id"
@@ -49,15 +49,16 @@
               </li>
             </ui>
             <v-spacer class="py-5"></v-spacer>
-            <v-btn elevation="10" @click="register(work.id)">参加する</v-btn>
-            &emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            <v-btn elevation="10" @click="cancell(work.id)">キャンセル</v-btn>
+            <div class="btnspace">
+              <v-btn elevation="10" @click="cancell(work.id)">キャンセル</v-btn>
+              <v-btn elevation="10" @click="register(work.id)">参加する</v-btn>
+            </div>
             <br />
             <br />
           </v-card>
         </v-form>
       </v-col>
-      <v-col cols="3"></v-col>
+      <v-col cols="2"></v-col>
     </v-row>
   </div>
 </template>
@@ -208,3 +209,9 @@ export default {
   },
 };
 </script>
+<style>
+.btnspace {
+  display: flex;
+  justify-content: space-around;
+}
+</style>

@@ -32,9 +32,10 @@
               <br />
               その他:{{ this.other }}
               <br />
-              <v-btn @click="workdelete">この案件を消去</v-btn>
-              &nbsp; &nbsp; &nbsp;
-              <v-btn @click="openedit">この案件を編集する</v-btn>
+              <div class="btnspace">
+                <v-btn @click="workdelete">この案件を消去</v-btn>
+                <v-btn @click="openedit">この案件を編集する</v-btn>
+              </div>
               <!-- 編集ダイアログ -->
               <v-dialog v-model="editDialog">
                 <v-row>
@@ -355,3 +356,9 @@ export default {
   },
 };
 </script>
+<style>
+.btnspace {
+  display: flex;
+  justify-content: space-around;
+}
+</style>

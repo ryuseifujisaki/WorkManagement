@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="8">
-            <v-form ref="form" lazy-validation>
+            <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field label="name" v-model="name" :rules="rules" required>
               </v-text-field>
               <br />
@@ -20,6 +20,7 @@
                 return-object
                 single-line
                 :rules="rules"
+                required
               ></v-select>
               <br />
               <v-select
@@ -32,12 +33,18 @@
                 return-object
                 single-line
                 :rules="rules"
+                required
               ></v-select>
               <br />
-              <v-text-field label="tel" v-model="tel" :rules="telRules">
+              <v-text-field label="tel" v-model="tel" :rules="rules" required>
               </v-text-field>
               <br />
-              <v-text-field label="email" v-model="email" :rules="emailRules">
+              <v-text-field
+                label="email"
+                v-model="email"
+                :rules="emailRules"
+                required
+              >
               </v-text-field>
               <br />
               <v-text-field
@@ -60,8 +67,8 @@
               <br />
               <v-btn
                 @click="
-                  validate();
-                  register;
+                  validate;
+                  register();
                 "
                 >新規作成</v-btn
               >
@@ -137,32 +144,34 @@ export default {
   },
   methods: {
     register: async function () {
-      const url = process.env.VUE_APP_URL + "/api/auth";
-      var params = new URLSearchParams();
-      params.append("name", this.name);
-      params.append("email", this.email);
-      params.append("tel", this.tel);
-      params.append("grade", this.grade.grade);
-      params.append("course", this.course.course);
-      params.append("password", this.password);
-      params.append("password_confirmation", this.password_confirmation);
-      axios.defaults.headers.common["Content-Type"] = "application/json";
-      axios.post(url, params).then(
-        (response) => {
-          localStorage.setItem(
-            "access-token",
-            response.headers["access-token"]
-          );
-          localStorage.setItem("client", response.headers["client"]);
-          localStorage.setItem("uid", response.headers["uid"]);
-          localStorage.setItem("token-type", response.headers["token-type"]);
-          this.$router.push("/work");
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      );
+      if (this.valid == true) {
+        const url = process.env.VUE_APP_URL + "/api/auth";
+        var params = new URLSearchParams();
+        params.append("name", this.name);
+        params.append("email", this.email);
+        params.append("tel", this.tel);
+        params.append("grade", this.grade.grade);
+        params.append("course", this.course.course);
+        params.append("password", this.password);
+        params.append("password_confirmation", this.password_confirmation);
+        axios.defaults.headers.common["Content-Type"] = "application/json";
+        axios.post(url, params).then(
+          (response) => {
+            localStorage.setItem(
+              "access-token",
+              response.headers["access-token"]
+            );
+            localStorage.setItem("client", response.headers["client"]);
+            localStorage.setItem("uid", response.headers["uid"]);
+            localStorage.setItem("token-type", response.headers["token-type"]);
+            this.$router.push("/work");
+          },
+          (error) => {
+            console.log(error);
+            return error;
+          }
+        );
+      }
     },
     //入力規制
     validate() {
