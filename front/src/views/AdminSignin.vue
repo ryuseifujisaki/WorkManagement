@@ -9,7 +9,14 @@
           <v-card-text class="text-center white">
             <v-text-field label="email" v-model="email"> </v-text-field>
             <br />
-            <v-text-field label="password" v-model="password"> </v-text-field>
+            <v-text-field
+              label="password"
+              v-model="password"
+              :type="show1 ? 'text' : 'password'"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show1 = !show1"
+            >
+            </v-text-field>
             <v-btn @click="submit">管理者ログイン</v-btn>
           </v-card-text>
         </v-col>
@@ -25,6 +32,7 @@ export default {
     return {
       email: null,
       password: null,
+      show1: false,
     };
   },
   methods: {
