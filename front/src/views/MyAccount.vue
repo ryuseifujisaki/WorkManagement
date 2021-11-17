@@ -47,27 +47,30 @@
               <v-col cols="8">
                 <v-card>
                   <v-row>
-                    <v-col cols="2"></v-col>
-                    <v-col cols="8">
+                    <v-col cols="1"></v-col>
+                    <v-col cols="10">
                       <v-container class="text-center justify-center py-6">
-                        <h2>Account edit</h2>
-                        <v-form ref="form" lazy-validation>
+                        <h4>Account edit</h4>
+                        <v-form ref="form" v-model="valid" lazy-validation>
                           <v-text-field
                             label="name"
                             v-model="name"
                             :rules="rules"
+                            required
                           >
                           </v-text-field>
                           <v-text-field
                             label="email"
                             v-model="email"
                             :rules="emailRules"
+                            required
                           >
                           </v-text-field>
                           <v-text-field
                             label="tel"
                             v-model="tel"
-                            :rules="telRules"
+                            :rules="rules"
+                            required
                           >
                           </v-text-field>
                           <v-select
@@ -80,6 +83,7 @@
                             return-object
                             single-line
                             :rules="rules"
+                            required
                           >
                           </v-select>
                           <v-select
@@ -92,21 +96,23 @@
                             return-object
                             single-line
                             :rules="rules"
+                            required
                           ></v-select>
                           <br />
-                          <v-btn @click="close">戻る</v-btn>
-                          &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-                          <v-btn
-                            @click="
-                              validate();
-                              edit;
-                            "
-                            >編集の確定</v-btn
-                          >
+                          <div class="btnspace">
+                            <v-btn @click="close">戻る</v-btn>
+                            <v-btn
+                              @click="
+                                validate;
+                                edit();
+                              "
+                              >編集の確定</v-btn
+                            >
+                          </div>
                         </v-form>
                       </v-container>
                     </v-col>
-                    <v-col cols="2"></v-col>
+                    <v-col cols="1"></v-col>
                   </v-row>
                 </v-card>
               </v-col>
@@ -132,6 +138,7 @@ export default {
       tel: "",
       course: "",
       dialog: false,
+      valid: true,
       select: { course: "例)機械創造工学課程", grade: "例)B4" },
       //入力規則
       rules: [(v) => !!v || "必須項目"],
@@ -141,11 +148,7 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "不適切なメールアドレスです",
       ],
       //tel規則
-      telRules: [
-        (v) => !!v || "必須項目",
-        (v) => (v && /^[0-9０-９]+$/) || "適切に入力してください",
-        (v) => (v && v.length == 11) || "電話番号が足りません",
-      ],
+      //telRules: [(v) => !!v || "必須項目"],
 
       courses: [
         { course: "機械創造工学課程" },
@@ -190,30 +193,34 @@ export default {
     //入力規則
     validate() {
       this.$refs.form.validate();
+      console.log(this.valid);
     },
     //編集の確定
     edit: function () {
-      const url = process.env.VUE_APP_URL;
-      var params = {
-        name: this.name,
-        email: this.email,
-        course: this.course.course,
-        tel: this.tel,
-        grade: this.grade.grade,
-      };
-      axios
-        .put(url + "/api/auth", params, {
-          headers: {
-            "Content-Type": "application/json",
-            "access-token": localStorage.getItem("access-token"),
-            client: localStorage.getItem("client"),
-            uid: localStorage.getItem("uid"),
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          location.reload();
-        });
+      console.log(this.valid);
+      if (this.valid == true) {
+        const url = process.env.VUE_APP_URL;
+        var params = {
+          name: this.name,
+          email: this.email,
+          course: this.course.course,
+          tel: this.tel,
+          grade: this.grade.grade,
+        };
+        axios
+          .put(url + "/api/auth", params, {
+            headers: {
+              "Content-Type": "application/json",
+              "access-token": localStorage.getItem("access-token"),
+              client: localStorage.getItem("client"),
+              uid: localStorage.getItem("uid"),
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            location.reload();
+          });
+      }
     },
   },
   //User情報取得
@@ -239,3 +246,9 @@ export default {
   },
 };
 </script>
+<style>
+.btnspace {
+  display: flex;
+  justify-content: space-around;
+}
+</style>
