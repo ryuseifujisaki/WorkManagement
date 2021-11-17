@@ -7,6 +7,7 @@
       <h1>All User Information</h1>
       <p align="right">管理者専用ページ</p>
       <p align="right">{{ this.userName }}</p>
+      <p align="right"><a href="/">user signin page</a></p>
       <v-row>
         <v-col cols="2"></v-col>
         <v-col cols="8">
