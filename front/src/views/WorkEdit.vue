@@ -5,6 +5,7 @@
       <h1 class="justify-center">Work Edit</h1>
       <p align="right">管理者専用ページ</p>
       <p align="right">{{ this.userName }}</p>
+      <p align="right"><a href="/">user signin page</a></p>
       <v-data-table :headers="headers" :items="works" @click:row="open">
       </v-data-table>
       <v-dialog v-model="dialog" max-width="600px">

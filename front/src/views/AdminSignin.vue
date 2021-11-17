@@ -5,8 +5,8 @@
       <p align="right">管理者専用ページ</p>
       <p align="right"><a href="/">user signin page</a></p>
       <v-row>
-        <v-col cols="4"></v-col>
-        <v-col cols="4">
+        <v-col cols="2"></v-col>
+        <v-col cols="8">
           <v-card-text class="text-center white">
             <v-text-field label="email" v-model="email"> </v-text-field>
             <br />
@@ -21,7 +21,7 @@
             <v-btn @click="submit">管理者ログイン</v-btn>
           </v-card-text>
         </v-col>
-        <v-col cols="4"></v-col>
+        <v-col cols="2"></v-col>
       </v-row>
     </v-container>
   </div>

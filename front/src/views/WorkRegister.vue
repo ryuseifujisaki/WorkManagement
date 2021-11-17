@@ -5,6 +5,7 @@
       <h1 class="justify-center">Work Register</h1>
       <p align="right">管理者専用ページ</p>
       <p align="right">{{ this.userName }}</p>
+      <p align="right"><a href="/">user signin page</a></p>
       <v-row>
         <v-col cols="3"></v-col>
         <v-col cols="6">
