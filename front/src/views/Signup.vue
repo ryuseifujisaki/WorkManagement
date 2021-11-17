@@ -40,11 +40,21 @@
               <v-text-field label="email" v-model="email" :rules="emailRules">
               </v-text-field>
               <br />
-              <v-text-field label="password" v-model="password"> </v-text-field>
+              <v-text-field
+                label="password"
+                v-model="password"
+                :type="show1 ? 'text' : 'password'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show1 = !show1"
+              >
+              </v-text-field>
               <br />
               <v-text-field
                 label="password_confirmation"
                 v-model="password_confirmation"
+                :type="show2 ? 'text' : 'password'"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show2 = !show2"
               >
               </v-text-field>
               <br />
@@ -75,6 +85,8 @@ export default {
       course: "",
       grade: "",
       tel: "",
+      show1: false,
+      show2: false,
       password_confirmation: null,
 
       //送信が成功したかどうかのフラグ
