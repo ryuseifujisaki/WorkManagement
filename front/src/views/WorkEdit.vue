@@ -34,8 +34,8 @@
               その他:{{ this.other }}
               <br />
               <div class="btnspace">
-                <v-btn @click="workdelete">この案件を消去</v-btn>
                 <v-btn @click="openedit">この案件を編集する</v-btn>
+                <v-btn color="error" @click="openconfirm">この案件を消去</v-btn>
               </div>
               <!-- 編集ダイアログ -->
               <v-dialog v-model="editDialog">
@@ -118,6 +118,17 @@
                   <v-col cols="2"></v-col>
                 </v-row>
               </v-dialog>
+              <!-- 消去ダイアログ -->
+              <v-dialog v-model="confirmdialog">
+                <v-card color="white">
+                  <div class="text-center">
+                    <h2>本当によろしいですか？</h2>
+                    <div class="btnspace">
+                      <v-btn color="error" @click="workdelete">消去</v-btn>
+                    </div>
+                  </div>
+                </v-card></v-dialog
+              >
             </v-col>
             <v-col cols="2"></v-col>
           </v-row>
@@ -134,6 +145,7 @@ export default {
     return {
       dialog: false,
       editDialog: false,
+      confirmdialog: false,
       search: "",
       userName: null,
       id: null,
@@ -251,6 +263,10 @@ export default {
       this.cloth = row.cloth;
       this.belonging = row.belonging;
       this.other = row.other;
+    },
+    openconfirm() {
+      this.dialog = false;
+      this.confirmdialog = true;
     },
     //案件消去
     workdelete: function () {

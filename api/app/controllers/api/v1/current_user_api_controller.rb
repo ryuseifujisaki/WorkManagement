@@ -13,6 +13,12 @@ class Api::V1::CurrentUserApiController < ApplicationController
     render json:{data: @user}
   end
 
+  # userデータ消去
+  def user_delete
+    @user = User.find(user_params[:id])
+    @user.destroy
+  end
+
   # userがサインインしているかの情報取得
   def get_user_signin 
     @user = current_api_user
@@ -29,4 +35,10 @@ class Api::V1::CurrentUserApiController < ApplicationController
     }
     render json: user_check
   end
+
+  private
+  def user_params
+    params.require(:current_user_api).permit(:id)
+  end
+
 end

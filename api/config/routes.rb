@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       get "current_user/index" => "current_user_api#index"
       #user_signin情報取得api
       get "current_user/get_user_signin" => "current_user_api#get_user_signin"
+      #userデータ消去
+      put "current_user/user_delete" => "current_user_api#user_delete"
       #admin
       get "current_admin/show" => "current_admin_api#show"
       #admin_signin情報取得api
