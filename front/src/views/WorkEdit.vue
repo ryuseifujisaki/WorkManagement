@@ -34,8 +34,8 @@
               その他:{{ this.other }}
               <br />
               <div class="btnspace">
-                <v-btn @click="workdelete">この案件を消去</v-btn>
                 <v-btn @click="openedit">この案件を編集する</v-btn>
+                <v-btn color="error" @click="workdelete">この案件を消去</v-btn>
               </div>
               <!-- 編集ダイアログ -->
               <v-dialog v-model="editDialog">
