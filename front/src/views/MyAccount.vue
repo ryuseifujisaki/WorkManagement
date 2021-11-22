@@ -42,82 +42,76 @@
           <v-btn @click="open">編集はこちら</v-btn>
           <!-- 編集ダイアログ -->
           <v-dialog v-model="dialog">
-            <v-row>
-              <v-col cols="2"></v-col>
-              <v-col cols="8">
-                <v-card>
-                  <v-row>
-                    <v-col cols="1"></v-col>
-                    <v-col cols="10">
-                      <v-container class="text-center justify-center py-6">
-                        <h4>Account edit</h4>
-                        <v-form ref="form" v-model="valid" lazy-validation>
-                          <v-text-field
-                            label="name"
-                            v-model="name"
-                            :rules="rules"
-                            required
-                          >
-                          </v-text-field>
-                          <v-text-field
-                            label="email"
-                            v-model="email"
-                            :rules="emailRules"
-                            required
-                          >
-                          </v-text-field>
-                          <v-text-field
-                            label="tel"
-                            v-model="tel"
-                            :rules="rules"
-                            required
-                          >
-                          </v-text-field>
-                          <v-select
-                            v-model="grade"
-                            :hint="`${select.grade}`"
-                            :items="grades"
-                            item-text="grade"
-                            label="grade"
-                            persistent-hint
-                            return-object
-                            single-line
-                            :rules="rules"
-                            required
-                          >
-                          </v-select>
-                          <v-select
-                            v-model="course"
-                            :hint="`${select.course}`"
-                            :items="courses"
-                            item-text="course"
-                            label="course"
-                            persistent-hint
-                            return-object
-                            single-line
-                            :rules="rules"
-                            required
-                          ></v-select>
-                          <br />
-                          <div class="btnspace">
-                            <v-btn @click="close">戻る</v-btn>
-                            <v-btn
-                              @click="
-                                validate;
-                                edit();
-                              "
-                              >編集の確定</v-btn
-                            >
-                          </div>
-                        </v-form>
-                      </v-container>
-                    </v-col>
-                    <v-col cols="1"></v-col>
-                  </v-row>
-                </v-card>
-              </v-col>
-              <v-col cols="2"></v-col>
-            </v-row>
+            <v-card>
+              <v-row>
+                <v-col cols="1"></v-col>
+                <v-col cols="10">
+                  <v-container class="text-center justify-center py-6">
+                    <h4>Account edit</h4>
+                    <v-form ref="form" v-model="valid" lazy-validation>
+                      <v-text-field
+                        label="name"
+                        v-model="name"
+                        :rules="rules"
+                        required
+                      >
+                      </v-text-field>
+                      <v-text-field
+                        label="email"
+                        v-model="email"
+                        :rules="emailRules"
+                        required
+                      >
+                      </v-text-field>
+                      <v-text-field
+                        label="tel"
+                        v-model="tel"
+                        :rules="rules"
+                        required
+                      >
+                      </v-text-field>
+                      <v-select
+                        v-model="grade"
+                        :hint="`${select.grade}`"
+                        :items="grades"
+                        item-text="grade"
+                        label="grade"
+                        persistent-hint
+                        return-object
+                        single-line
+                        :rules="rules"
+                        required
+                      >
+                      </v-select>
+                      <v-select
+                        v-model="course"
+                        :hint="`${select.course}`"
+                        :items="courses"
+                        item-text="course"
+                        label="course"
+                        persistent-hint
+                        return-object
+                        single-line
+                        :rules="rules"
+                        required
+                      ></v-select>
+                      <br />
+                      <div class="btnspace">
+                        <v-btn @click="close">戻る</v-btn>
+                        <v-btn
+                          @click="
+                            validate;
+                            edit();
+                          "
+                          >編集の確定</v-btn
+                        >
+                      </div>
+                    </v-form>
+                  </v-container>
+                </v-col>
+                <v-col cols="1"></v-col>
+              </v-row>
+            </v-card>
           </v-dialog>
         </v-col>
         <v-col cols="2"></v-col>
