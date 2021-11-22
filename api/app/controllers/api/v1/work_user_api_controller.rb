@@ -18,6 +18,7 @@ class Api::V1::WorkUserApiController < ApplicationController
     workdetails = []
     for work in @work
       usersname  = []
+      work_id = work.id
       work_name = work.name
       work_limit = work.limit
       work_day = work.day
@@ -34,6 +35,7 @@ class Api::V1::WorkUserApiController < ApplicationController
         usersname.push(user_name)
       end
       workdetails << {
+        id: work_id,
         name: work_name,
         limit: work_limit,
         day: work_day,
