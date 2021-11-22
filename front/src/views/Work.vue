@@ -21,7 +21,6 @@
           class="text-center justify-center py-6"
         >
           <v-card>
-            <h1>案件{{ work.id }}</h1>
             <br />
             案件:{{ work.name }}
             <br />
@@ -40,14 +39,11 @@
             服装:{{ work.cloth }}
             <br />
             メンバー:
-            <ui>
-              <li
-                v-for="workuser in workUsers[work.id - 1]"
-                v-bind:key="workuser.id"
-              >
-                {{ workuser.name }}
-              </li>
-            </ui>
+            <ul v-for="n of work.usernames" :key="n">
+              {{
+                n
+              }}
+            </ul>
             <v-spacer class="py-5"></v-spacer>
             <div class="btnspace">
               <v-btn elevation="10" @click="cancell(work.id)">キャンセル</v-btn>
@@ -73,6 +69,7 @@ export default {
       works: [],
       workId: "",
       workUsers: [],
+      workNum: "",
       usersName: null,
       userId: "",
       flag: null,
@@ -163,7 +160,7 @@ export default {
         }
       });
     await axios
-      .get(url + "/works", {
+      .get(url + "/api/v1/work_user/get_work_detail", {
         headers: {
           "Content-Type": "application/json",
           "access-token": localStorage.getItem("access-token"),
@@ -174,22 +171,6 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.works = response.data;
-        for (let i = 1; i <= this.works.length; i++) {
-          this.blockTime(100);
-          axios
-            .get(url + "/api/v1/work_user/get_work_user/" + i, {
-              headers: {
-                "Content-Type": "application/json",
-                "access-token": localStorage.getItem("access-token"),
-                client: localStorage.getItem("client"),
-                uid: localStorage.getItem("uid"),
-              },
-            })
-            .then((response) => {
-              this.workUsers.push(response.data);
-            });
-        }
-        console.log(this.workUsers);
       });
     await axios
       .get(url + "/api/v1/current_user/show", {

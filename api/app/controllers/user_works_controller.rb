@@ -4,7 +4,6 @@ class UserWorksController < ApplicationController
   # GET /user_works
   def index
     @user_works = UserWork.all
-
     render json: @user_works
   end
 

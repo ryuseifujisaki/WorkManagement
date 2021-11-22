@@ -26,7 +26,8 @@ Rails.application.routes.draw do
       get "current_admin/get_admin_signin" => "current_admin_api#get_admin_signin"
       #work_user
       get "work_user/get_work_user/:id" => "work_user_api#get_work_user"
-      
+      #work_detail
+      get "work_user/get_work_detail" => "work_user_api#get_work_detail"
     end
 
   end
