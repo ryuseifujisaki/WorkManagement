@@ -39,84 +39,75 @@
               </div>
               <!-- 編集ダイアログ -->
               <v-dialog v-model="editDialog">
-                <v-row>
-                  <v-col cols="2"></v-col>
-                  <v-col cols="8">
-                    <v-card>
-                      <v-row>
-                        <v-col cols="2"></v-col>
-                        <v-col cols="8">
-                          <div class="text-center">
-                            <br />
-                            <h1>Edit</h1>
-                            <v-form ref="form" lazy-validation>
-                              <v-text-field
-                                label="Work_name"
-                                v-model="name"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="Number of people"
-                                v-model="limit"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="Day"
-                                v-model="day"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="money"
-                                v-model="money"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="Where"
-                                v-model="where"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field label="Carfare" v-model="carfare">
-                              </v-text-field>
-                              <v-text-field
-                                label="content"
-                                v-model="content"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="cloth"
-                                v-model="cloth"
-                                :rules="rules"
-                              >
-                              </v-text-field>
-                              <v-text-field
-                                label="belonging"
-                                v-model="belonging"
-                              >
-                              </v-text-field>
-                              <v-text-field label="other" v-model="other">
-                              </v-text-field>
-                              <v-btn
-                                @click="
-                                  validate();
-                                  workedit;
-                                "
-                                >編集を完了します</v-btn
-                              >
-                            </v-form>
-                          </div>
-                        </v-col>
-                        <v-col cols="2"></v-col>
-                      </v-row>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="2"></v-col>
-                </v-row>
+                <v-card>
+                  <v-row>
+                    <v-col cols="2"></v-col>
+                    <v-col cols="8">
+                      <div class="text-center">
+                        <br />
+                        <h1>Edit</h1>
+                        <v-form ref="form" lazy-validation>
+                          <v-text-field
+                            label="Work_name"
+                            v-model="name"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="Number of people"
+                            v-model="limit"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="Day"
+                            v-model="day"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="money"
+                            v-model="money"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="Where"
+                            v-model="where"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field label="Carfare" v-model="carfare">
+                          </v-text-field>
+                          <v-text-field
+                            label="content"
+                            v-model="content"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field
+                            label="cloth"
+                            v-model="cloth"
+                            :rules="rules"
+                          >
+                          </v-text-field>
+                          <v-text-field label="belonging" v-model="belonging">
+                          </v-text-field>
+                          <v-text-field label="other" v-model="other">
+                          </v-text-field>
+                          <v-btn
+                            @click="
+                              validate();
+                              workedit;
+                            "
+                            >編集を完了します</v-btn
+                          >
+                        </v-form>
+                      </div>
+                    </v-col>
+                    <v-col cols="2"></v-col>
+                  </v-row>
+                </v-card>
               </v-dialog>
               <!-- 消去ダイアログ -->
               <v-dialog v-model="confirmdialog">
