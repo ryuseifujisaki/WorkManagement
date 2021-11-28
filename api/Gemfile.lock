@@ -99,6 +99,7 @@ GEM
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pg (1.2.3)
     puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
@@ -175,6 +176,7 @@ DEPENDENCIES
   devise_token_auth
   listen (~> 3.2)
   mysql2 (>= 0.4.4)
+  pg
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.4, >= 6.0.4.1)
