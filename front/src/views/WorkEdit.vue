@@ -98,7 +98,7 @@
                           <v-btn
                             @click="
                               validate();
-                              workedit;
+                              workedit();
                             "
                             >編集を完了します</v-btn
                           >
